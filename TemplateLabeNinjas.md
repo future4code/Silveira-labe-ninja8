@@ -8,3 +8,4 @@
 `` Escolhemos uma paleta de cores misturando roxo com cinza e branco. `
 `` Já fizemos o esqueleto do site e organizamos o que falta ser feito (toda a lógica). `
 
+[Labeninjas-Template (1).pdf](https://github.com/future4code/Silveira-labe-ninja8/files/8476143/Labeninjas-Template.1.pdf)
