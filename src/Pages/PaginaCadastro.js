@@ -29,7 +29,10 @@ export default class PaginaCadastro extends React.Component {
     inputProduto: "",
     inputDescricao: "",
     inputPreco: "",
-    inputPagamento: [],
+    inputPagamento: {
+      cartaoDeCredito: false,
+      cartaoDeDebito: false,
+    },
     inputData: "",
   };
 
@@ -45,11 +48,11 @@ export default class PaginaCadastro extends React.Component {
     this.setState({ inputPreco: event.target.value });
   };
 
-  onChangeSelectPagamento = (event) => {
-    const copiaPagamento = [...this.state.inputPagamento];
-    copiaPagamento.push(event.target.value)
+  onChangeSelectPagamento = (event, name) => {
+    const copiaPagamento = {...this.state.inputPagamento};
+    copiaPagamento[name] = event.target.checked
 
-    this.setState({ inputPagamento: copiaPagamento});
+    this.setState({ inputPagamento: copiaPagamento });
   };
 
   onChangeInputData = (event) => {
@@ -94,7 +97,7 @@ export default class PaginaCadastro extends React.Component {
             <select
               onChange={this.onChangeSelectPagamento}
               value={this.state.inputPagamento}
-              multiple
+              // multiple
             >
               <option> Cartão de crédito </option>
               <option> Cartão de débito </option>
@@ -102,6 +105,24 @@ export default class PaginaCadastro extends React.Component {
               <option> Boleto bancário </option>
               <option> Pix </option>
             </select>
+            <label>
+              <input
+                type="checkbox"
+                checked={this.state.inputPagamento.cartaoDeCredito}
+                onChange={(event) => this.onChangeSelectPagamento(event, "cartaoDeCredito")}
+              />
+              Cartão de Crédito
+            </label>
+
+            <label>
+              <input
+                type="checkbox"
+                checked={this.state.inputPagamento.cartaoDeDebito}
+                onChange={(event) => this.onChangeSelectPagamento(event, "cartaoDeDebito")}
+              />
+              Cartão de Débito
+            </label>
+
             <input
               onChange={this.onChangeInputData}
               value={this.state.inputData}
