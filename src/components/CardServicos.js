@@ -20,17 +20,41 @@ export default class CardServico extends React.Component {
 
     render() {
 
-        return(
+        return (
+          <>
             <CartaoServico>
-                <h4> Título genérico </h4>
-                <p> Preço: Grátis </p>
-                <p> Prazo: 01/01/2001 </p>
+              <h4> Título genérico </h4>
+              <p> Preço: Grátis </p>
+              <p> Prazo: 01/01/2001 </p>
 
-                <div>
-                    <button> Ver detalhes </button>
-                    <button> Adicionar ao Carrinho </button>
-                </div>
+              <div>
+                <button> Ver detalhes </button>
+                <button> Adicionar ao Carrinho </button>
+              </div>
             </CartaoServico>
-        )
+
+            <CartaoServico>
+              <h4> aaaaaaaa </h4>
+              <p> Preço: 10,00 </p>
+              <p> Prazo: 01/01/2001 </p>
+
+              <div>
+                <button> Ver detalhes </button>
+                <button> Adicionar ao Carrinho </button>
+              </div>
+            </CartaoServico>
+
+            <CartaoServico>
+              <h4> CCCCCCCCC </h4>
+              <p> Preço: 25,00 </p>
+              <p> Prazo: 01/01/2001 </p>
+
+              <div>
+                <button> Ver detalhes </button>
+                <button> Adicionar ao Carrinho </button>
+              </div>
+            </CartaoServico>
+          </>
+        );
     }
 }

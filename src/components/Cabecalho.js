@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import PaginaCarrinho from "../Pages/PaginaCarrinho";
+import PaginaInicial from '../Pages/PaginaInicial'
 
 const EstiloCabecalho = styled.div`
   display: flex;
@@ -9,19 +11,19 @@ const EstiloCabecalho = styled.div`
   background-color: rgb(120, 103, 191);
 `;
 
-class Cabecalho extends React.Component {
-  state = {};
+export default class Cabecalho extends React.Component {
+
   render() {
     return (
       <EstiloCabecalho>
         <h1> Labeninjas </h1>
         <div>
-          <button> Home </button>
-          <button> Carrinho </button>
+          <button onClick={this.props.voltarParaInicial}> Home </button>
+          <button onClick={this.props.vaiParaCarrinho}> Carrinho </button>
         </div>
       </EstiloCabecalho>
     );
   }
 }
 
-export default Cabecalho;
+

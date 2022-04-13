@@ -7,6 +7,7 @@ import PaginaCadastro from "./Pages/PaginaCadastro";
 import PaginaContrato from "./Pages/PaginaContrato";
 import Filtros from "./components/filtros";
 import CardServico from "./components/CardServicos";
+import PaginaCarrinho from "./Pages/PaginaCarrinho";
 
 const EstiloGeral = createGlobalStyle`
 * {
@@ -16,18 +17,53 @@ const EstiloGeral = createGlobalStyle`
 }
 `;
 
-function App() {
+export default class App extends React.Component {
+  state = {
+    telaAtual: 'Pagina inicial'
+  };
+
+  trocarDeTela = () => {
+    switch(this.state.telaAtual) {
+      case 'Pagina inicial':
+        return <PaginaInicial 
+        vaiParaCadastro={this.vaiParaCadastro}
+        vaiParaContrato={this.vaiParaContrato}
+        />
+      case 'carrinho':
+        return <PaginaCarrinho/>
+      case 'cadastrar': 
+      return <PaginaCadastro/>
+      case 'contratar': 
+      return <PaginaContrato/>
+      default:
+        return <p> Houve um erro. Página não encontrada </p>
+    }
+  }
+
+  vaiParaCadastro = () => {
+    this.setState({telaAtual: "cadastrar"});
+  };
+
+  vaiParaContrato = () => {
+    this.setState({telaAtual: "contratar"});
+  };
+
+  vaiParaCarrinho = () => {
+    this.setState({telaAtual: 'carrinho'});
+  };
+
+  voltarParaInicial = () => {
+    this.setState({telaAtual: 'Pagina inicial'})
+  }
+
+  render (){
   return (
     <div>
-      <EstiloGeral />
-      <CardServico/>
-      {/* <Filtros/> */}
-     {/* <PaginaCadastro/> */}
-      {/* {<PaginaInicial/>} */}
-      {/* <AppContainer /> */}
-     {/* <Cabecalho /> */}
+     <Cabecalho vaiParaCarrinho={this.vaiParaCarrinho} voltarParaInicial={this.voltarParaInicial}/>
+     {this.trocarDeTela()}
     </div>
   );
+  };
 }
 
-export default App;
+

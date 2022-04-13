@@ -21,13 +21,12 @@ export default class HomePage extends React.Component {
   render() {
     return (
       <div>
-        <Cabecalho />
         <PaginaInicial>
           <TituloPagina> LabeNinjas </TituloPagina>
           <h3> O talento certo, no momento certo </h3>
           <Botoes>
-            <button> Quero ser um ninja </button>
-            <button> Contratar um ninja </button>
+            <button onClick={this.props.vaiParaCadastro}> Quero ser um ninja </button>
+            <button onClick={this.props.vaiParaContrato}> Contratar um ninja </button>
           </Botoes>
         </PaginaInicial>
       </div>
