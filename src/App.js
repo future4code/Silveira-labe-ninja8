@@ -18,7 +18,8 @@ const EstiloGeral = createGlobalStyle`
 
 export default class App extends React.Component {
   state = {
-    telaAtual: 'Pagina inicial'
+    telaAtual: 'Pagina inicial',
+    servicoClicado: ''
   };
 
   trocarDeTela = () => {
@@ -35,7 +36,7 @@ export default class App extends React.Component {
       case 'contratar': 
       return <PaginaContrato irParaDetalhes={this.irParaDetalhes}/>
       case 'detalhes':
-        return <PaginaDetalhes vaiParaContrato={this.vaiParaContrato}/>
+        return <PaginaDetalhes vaiParaContrato={this.vaiParaContrato} servicoClicado={this.state.servicoClicado}/>
       default:
         return <p> Houve um erro. Página não encontrada </p>
     }
@@ -57,12 +58,16 @@ export default class App extends React.Component {
     this.setState({telaAtual: 'Pagina inicial'})
   };
 
-  irParaDetalhes = () => {
-    this.setState({telaAtual: 'detalhes'});
+  irParaDetalhes = (id) => {
+   this.setState({ 
+    servicoClicado: id,
+    telaAtual: 'detalhes'
+  });
   };
 
 
   render (){
+    console.log(this.state.servicoClicado)
   return (
     <div>
      <Cabecalho vaiParaCarrinho={this.vaiParaCarrinho} voltarParaInicial={this.voltarParaInicial}/>

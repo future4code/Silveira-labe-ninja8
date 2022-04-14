@@ -18,17 +18,22 @@ h4, p, div {
 
 export default class CardServico extends React.Component {
 
+  mascDataString = (dataString) => {
+    const date = new Date(dataString);
+    return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
+  } 
+
     render() {
 
         return (
           <>
             <CartaoServico>
-              <h4> Título genérico </h4>
-              <p> Preço: Grátis </p>
-              <p> Prazo: 01/01/2001 </p>
+              <h4> {this.props.titulo} </h4>
+              <p> Preço: {this.props.preco} </p>
+              <p> Prazo: {this.mascDataString(this.props.prazo)} </p>
 
               <div>
-                <button onClick={this.props.irParaDetalhes}> Ver detalhes </button>
+                <button onClick={() => this.props.irParaDetalhes(this.props.servico.id)}> Ver detalhes </button>
                 <button> Adicionar ao Carrinho </button>
               </div>
             </CartaoServico>

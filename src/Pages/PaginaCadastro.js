@@ -2,7 +2,6 @@ import React from "react";
 import { BASE_url } from "../constants/urls";
 import styled from "styled-components";
 import axios from "axios";
-
 const PaginaProdutos = styled.div`
   display: flex;
   flex-direction: column;
@@ -11,20 +10,17 @@ const PaginaProdutos = styled.div`
   max-width: 50%;
   top: 10vh;
 `;
-
 const CaixaInputs = styled.div`
   display: flex;
   flex-direction: column;
   margin: 5vh;
   width: 50%;
-
   input,
   select,
   button {
     margin: 1vh;
   }
 `;
-
 export default class PaginaCadastro extends React.Component {
   state = {
     inputProduto: "",
@@ -33,24 +29,20 @@ export default class PaginaCadastro extends React.Component {
     inputPagamento: [],
     inputData: "",
   };
-
   onChangeInputProduto = (event) => {
     this.setState({ inputProduto: event.target.value });
   };
-
   onChangeInputDescricao = (event) => {
     this.setState({ inputDescricao: event.target.value });
   };
-
   onChangeInputPreco = (event) => {
     this.setState({ inputPreco: Number(event.target.value) });
-  };
 
+  };
   onChangeSelectPagamento = (event, name) => {
     if (event.target.checked === true) {
       //Lógica de adicionar forma de pagamento
       const copiaPagamento = [...this.state.inputPagamento, name];
-
       this.setState({
         inputPagamento: copiaPagamento,
       });
@@ -58,9 +50,7 @@ export default class PaginaCadastro extends React.Component {
       //lógica de remover forma de pagamento
       const removePagamento = [...this.state.inputPagamento]; //possivel usar filter
       const posicaoParaRemover = removePagamento.indexOf(name); //indexOf encontra a posição de algum elemento dentro de um array
-
       removePagamento.splice(posicaoParaRemover, 1); //splice: dado uma posição, ele remove a partir dessa posição a quantidade
-
       this.setState({
         inputPagamento: removePagamento,
       });
@@ -70,7 +60,6 @@ export default class PaginaCadastro extends React.Component {
   onChangeInputData = (event) => {
     this.setState({ inputData: event.target.value });
   };
-
   cadastrarServico = async () => {
     const url = `${BASE_url}/jobs`;
     const body = {
@@ -104,7 +93,6 @@ export default class PaginaCadastro extends React.Component {
       <>
         <PaginaProdutos>
           <h1> Cadastre seu serviço </h1>
-
           <CaixaInputs>
             <input
               onChange={this.onChangeInputProduto}
@@ -124,17 +112,7 @@ export default class PaginaCadastro extends React.Component {
               type="number"
               placeholder="Preço"
             />
-            {/* <select
-              onChange={this.onChangeSelectPagamento}
-              value={this.state.inputPagamento}
-              multiple
-            >
-              <option> Cartão de crédito </option>
-              <option> Cartão de débito </option>
-              <option> PayPal </option>
-              <option> Boleto bancário </option>
-              <option> Pix </option>
-            </select> */}
+
             <label>
               <input
                 type="checkbox"
@@ -145,7 +123,6 @@ export default class PaginaCadastro extends React.Component {
               />
               Cartão de Crédito
             </label>
-
             <label>
               <input
                 type="checkbox"
