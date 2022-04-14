@@ -1,6 +1,7 @@
 import React from "react";
-import Cabecalho from "../components/Cabecalho";
+import { BASE_url } from "../constants/urls";
 import styled from "styled-components";
+import axios from "axios";
 
 const PaginaProdutos = styled.div`
   display: flex;
@@ -29,10 +30,7 @@ export default class PaginaCadastro extends React.Component {
     inputProduto: "",
     inputDescricao: "",
     inputPreco: "",
-    inputPagamento: {
-      cartaoDeCredito: false,
-      cartaoDeDebito: false,
-    },
+    inputPagamento: ["Cartão", "dinheiro"],
     inputData: "",
   };
 
@@ -48,26 +46,45 @@ export default class PaginaCadastro extends React.Component {
     this.setState({ inputPreco: event.target.value });
   };
 
-  onChangeSelectPagamento = (event, name) => {
-    const copiaPagamento = {...this.state.inputPagamento};
-    copiaPagamento[name] = event.target.checked
+  // onChangeSelectPagamento = (event, name) => {
+  //   const copiaPagamento = { ...this.state.inputPagamento };
+  //   copiaPagamento[name] = event.target.checked;
 
-    this.setState({ inputPagamento: copiaPagamento });
-  };
+  //   this.setState({ inputPagamento: copiaPagamento });
+  // };
 
   onChangeInputData = (event) => {
     this.setState({ inputData: event.target.value });
   };
 
-  limparInputs = () => {
-    this.setState({
-      inputProduto: "",
-      inputDescricao: "",
-      inputPreco: "",
-      inputPagamento: "",
-      inputData: "",
-    });
+  cadastrarServico = async () => {
+    const url = `${BASE_url}/jobs`;
+    const body = {
+      title: this.state.inputProduto,
+      description: this.state.inputDescricao,
+      price: this.state.inputPreco,
+      paymentMethods: [this.state.inputPagamento],
+      dueDate: this.state.inputData,
+    };
+    try {
+      await axios.post(url, body, {
+        headers: {
+          Authorization: "bdfba6d4-d485-47b5-94e1-096ed9cca2bf",
+        },
+      });
+      this.setState({
+        inputProduto: "",
+        inputDescricao: "",
+        inputPreco: "",
+        // inputPagamento: "",
+        inputData: "",
+      });
+      alert("Produto cadastrado.");
+    } catch (err) {
+      alert(err.message);
+    }
   };
+
 
   render() {
     return (
@@ -95,8 +112,8 @@ export default class PaginaCadastro extends React.Component {
               placeholder="Preço"
             />
             <select
-              onChange={this.onChangeSelectPagamento}
-              value={this.state.inputPagamento}
+              // onChange={this.onChangeSelectPagamento}
+              // value={this.state.inputPagamento}
               // multiple
             >
               <option> Cartão de crédito </option>
@@ -107,9 +124,11 @@ export default class PaginaCadastro extends React.Component {
             </select>
             <label>
               <input
-                type="checkbox"
-                checked={this.state.inputPagamento.cartaoDeCredito}
-                onChange={(event) => this.onChangeSelectPagamento(event, "cartaoDeCredito")}
+                // type="checkbox"
+                // checked={this.state.inputPagamento.cartaoDeCredito}
+                // onChange={(event) =>
+                //   this.onChangeSelectPagamento(event, "cartaoDeCredito")
+                // }
               />
               Cartão de Crédito
             </label>
@@ -118,7 +137,9 @@ export default class PaginaCadastro extends React.Component {
               <input
                 type="checkbox"
                 checked={this.state.inputPagamento.cartaoDeDebito}
-                onChange={(event) => this.onChangeSelectPagamento(event, "cartaoDeDebito")}
+                onChange={(event) =>
+                  this.onChangeSelectPagamento(event, "cartaoDeDebito")
+                }
               />
               Cartão de Débito
             </label>
@@ -128,7 +149,8 @@ export default class PaginaCadastro extends React.Component {
               value={this.state.inputData}
               type="date"
             />
-            <button onClick={this.limparInputs}> Cadastrar serviço </button>
+            
+            <button onClick={this.cadastrarServico}> Cadastrar serviço </button>
           </CaixaInputs>
         </PaginaProdutos>
       </>

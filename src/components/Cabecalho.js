@@ -1,7 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import PaginaCarrinho from "../Pages/PaginaCarrinho";
-import PaginaInicial from '../Pages/PaginaInicial'
 
 const EstiloCabecalho = styled.div`
   display: flex;

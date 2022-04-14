@@ -1,5 +1,4 @@
 import React from "react";
-import Cabecalho from "../components/Cabecalho";
 import styled from 'styled-components'
 
 const PaginaInicial = styled.div`
