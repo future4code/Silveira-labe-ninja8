@@ -138,7 +138,7 @@ export default class PaginaCadastro extends React.Component {
             <label>
               <input
                 type="checkbox"
-                checked={this.state.inputPagamento.includes("cartaoDeCredito")}// includes funcionando pois inputPagamento é um array inicialmente
+                checked={this.state.inputPagamento.includes("cartaoDeCredito")} // includes funcionando pois inputPagamento é um array inicialmente
                 onChange={(event) =>
                   this.onChangeSelectPagamento(event, "cartaoDeCredito")
                 }
@@ -155,6 +155,34 @@ export default class PaginaCadastro extends React.Component {
                 }
               />
               Cartão de Débito
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                checked={this.state.inputPagamento.includes("paypal")}
+                onChange={(event) =>
+                  this.onChangeSelectPagamento(event, "paypal")
+                }
+              />
+              PayPal
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                checked={this.state.inputPagamento.includes("boleto")}
+                onChange={(event) =>
+                  this.onChangeSelectPagamento(event, "boleto")
+                }
+              />
+              Boleto Bancário
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                checked={this.state.inputPagamento.includes("pix")}
+                onChange={(event) => this.onChangeSelectPagamento(event, "pix")}
+              />
+              Pix
             </label>
 
             <input
