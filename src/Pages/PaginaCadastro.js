@@ -37,6 +37,7 @@ export default class PaginaCadastro extends React.Component {
   };
   onChangeInputPreco = (event) => {
     this.setState({ inputPreco: Number(event.target.value) });
+
   };
   onChangeSelectPagamento = (event, name) => {
     if (event.target.checked === true) {
@@ -55,6 +56,7 @@ export default class PaginaCadastro extends React.Component {
       });
     }
   };
+
   onChangeInputData = (event) => {
     this.setState({ inputData: event.target.value });
   };
@@ -85,6 +87,7 @@ export default class PaginaCadastro extends React.Component {
       alert(err.message);
     }
   };
+
   render() {
     return (
       <>
@@ -109,6 +112,7 @@ export default class PaginaCadastro extends React.Component {
               type="number"
               placeholder="Preço"
             />
+
             <label>
               <input
                 type="checkbox"
@@ -157,6 +161,7 @@ export default class PaginaCadastro extends React.Component {
               />
               Pix
             </label>
+
             <input
               onChange={this.onChangeInputData}
               value={this.state.inputData}
