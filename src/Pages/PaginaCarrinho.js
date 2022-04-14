@@ -1,11 +1,12 @@
 import React from 'react'
+import CardProdutosCarrinho from '../components/CardProdutosCarrinho'
 
 export default class PaginaCarrinho extends React.Component {
     render() {
 
         return (
             <>
-                <h1> Carrinho </h1>
+                <CardProdutosCarrinho voltaParaContrato={this.props.vaiParaContrato}/>
             </>
         )
     }

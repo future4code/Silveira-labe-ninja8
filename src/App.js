@@ -5,9 +5,8 @@ import styled, { createGlobalStyle } from "styled-components";
 import PaginaInicial from "./Pages/PaginaInicial";
 import PaginaCadastro from "./Pages/PaginaCadastro";
 import PaginaContrato from "./Pages/PaginaContrato";
-import Filtros from "./components/filtros";
-import CardServico from "./components/CardServicos";
 import PaginaCarrinho from "./Pages/PaginaCarrinho";
+import PaginaDetalhes from "./Pages/PaginaDetalhe";
 
 const EstiloGeral = createGlobalStyle`
 * {
@@ -30,11 +29,13 @@ export default class App extends React.Component {
         vaiParaContrato={this.vaiParaContrato}
         />
       case 'carrinho':
-        return <PaginaCarrinho/>
+        return <PaginaCarrinho vaiParaContrato={this.vaiParaContrato}/>
       case 'cadastrar': 
       return <PaginaCadastro/>
       case 'contratar': 
-      return <PaginaContrato/>
+      return <PaginaContrato irParaDetalhes={this.irParaDetalhes}/>
+      case 'detalhes':
+        return <PaginaDetalhes vaiParaContrato={this.vaiParaContrato}/>
       default:
         return <p> Houve um erro. Página não encontrada </p>
     }
@@ -54,7 +55,12 @@ export default class App extends React.Component {
 
   voltarParaInicial = () => {
     this.setState({telaAtual: 'Pagina inicial'})
-  }
+  };
+
+  irParaDetalhes = () => {
+    this.setState({telaAtual: 'detalhes'});
+  };
+
 
   render (){
   return (

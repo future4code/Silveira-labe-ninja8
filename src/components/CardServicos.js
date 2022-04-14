@@ -28,32 +28,11 @@ export default class CardServico extends React.Component {
               <p> Prazo: 01/01/2001 </p>
 
               <div>
-                <button> Ver detalhes </button>
+                <button onClick={this.props.irParaDetalhes}> Ver detalhes </button>
                 <button> Adicionar ao Carrinho </button>
               </div>
             </CartaoServico>
 
-            <CartaoServico>
-              <h4> aaaaaaaa </h4>
-              <p> Preço: 10,00 </p>
-              <p> Prazo: 01/01/2001 </p>
-
-              <div>
-                <button> Ver detalhes </button>
-                <button> Adicionar ao Carrinho </button>
-              </div>
-            </CartaoServico>
-
-            <CartaoServico>
-              <h4> CCCCCCCCC </h4>
-              <p> Preço: 25,00 </p>
-              <p> Prazo: 01/01/2001 </p>
-
-              <div>
-                <button> Ver detalhes </button>
-                <button> Adicionar ao Carrinho </button>
-              </div>
-            </CartaoServico>
           </>
         );
     }
