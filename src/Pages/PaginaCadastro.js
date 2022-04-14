@@ -2,7 +2,6 @@ import React from "react";
 import { BASE_url } from "../constants/urls";
 import styled from "styled-components";
 import axios from "axios";
-
 const PaginaProdutos = styled.div`
   display: flex;
   flex-direction: column;
@@ -11,59 +10,61 @@ const PaginaProdutos = styled.div`
   max-width: 50%;
   top: 10vh;
 `;
-
 const CaixaInputs = styled.div`
   display: flex;
   flex-direction: column;
   margin: 5vh;
   width: 50%;
-
   input,
   select,
   button {
     margin: 1vh;
   }
 `;
-
 export default class PaginaCadastro extends React.Component {
   state = {
     inputProduto: "",
     inputDescricao: "",
     inputPreco: "",
-    inputPagamento: ["Cartão", "dinheiro"],
+    inputPagamento: [],
     inputData: "",
   };
-
   onChangeInputProduto = (event) => {
     this.setState({ inputProduto: event.target.value });
   };
-
   onChangeInputDescricao = (event) => {
     this.setState({ inputDescricao: event.target.value });
   };
-
   onChangeInputPreco = (event) => {
-    this.setState({ inputPreco: event.target.value });
+    this.setState({ inputPreco: Number(event.target.value) });
   };
-
-  // onChangeSelectPagamento = (event, name) => {
-  //   const copiaPagamento = { ...this.state.inputPagamento };
-  //   copiaPagamento[name] = event.target.checked;
-
-  //   this.setState({ inputPagamento: copiaPagamento });
-  // };
-
+  onChangeSelectPagamento = (event, name) => {
+    if (event.target.checked === true) {
+      //Lógica de adicionar forma de pagamento
+      const copiaPagamento = [...this.state.inputPagamento, name];
+      this.setState({
+        inputPagamento: copiaPagamento,
+      });
+    } else {
+      //lógica de remover forma de pagamento
+      const removePagamento = [...this.state.inputPagamento]; //possivel usar filter
+      const posicaoParaRemover = removePagamento.indexOf(name); //indexOf encontra a posição de algum elemento dentro de um array
+      removePagamento.splice(posicaoParaRemover, 1); //splice: dado uma posição, ele remove a partir dessa posição a quantidade
+      this.setState({
+        inputPagamento: removePagamento,
+      });
+    }
+  };
   onChangeInputData = (event) => {
     this.setState({ inputData: event.target.value });
   };
-
   cadastrarServico = async () => {
     const url = `${BASE_url}/jobs`;
     const body = {
       title: this.state.inputProduto,
       description: this.state.inputDescricao,
       price: this.state.inputPreco,
-      paymentMethods: [this.state.inputPagamento],
+      paymentMethods: this.state.inputPagamento,
       dueDate: this.state.inputData,
     };
     try {
@@ -76,7 +77,7 @@ export default class PaginaCadastro extends React.Component {
         inputProduto: "",
         inputDescricao: "",
         inputPreco: "",
-        // inputPagamento: "",
+        inputPagamento: "",
         inputData: "",
       });
       alert("Produto cadastrado.");
@@ -84,14 +85,11 @@ export default class PaginaCadastro extends React.Component {
       alert(err.message);
     }
   };
-
-
   render() {
     return (
       <>
         <PaginaProdutos>
           <h1> Cadastre seu serviço </h1>
-
           <CaixaInputs>
             <input
               onChange={this.onChangeInputProduto}
@@ -111,45 +109,59 @@ export default class PaginaCadastro extends React.Component {
               type="number"
               placeholder="Preço"
             />
-            <select
-              // onChange={this.onChangeSelectPagamento}
-              // value={this.state.inputPagamento}
-              // multiple
-            >
-              <option> Cartão de crédito </option>
-              <option> Cartão de débito </option>
-              <option> PayPal </option>
-              <option> Boleto bancário </option>
-              <option> Pix </option>
-            </select>
-            <label>
-              <input
-                // type="checkbox"
-                // checked={this.state.inputPagamento.cartaoDeCredito}
-                // onChange={(event) =>
-                //   this.onChangeSelectPagamento(event, "cartaoDeCredito")
-                // }
-              />
-              Cartão de Crédito
-            </label>
-
             <label>
               <input
                 type="checkbox"
-                checked={this.state.inputPagamento.cartaoDeDebito}
+                checked={this.state.inputPagamento.includes("cartaoDeCredito")} // includes funcionando pois inputPagamento é um array inicialmente
+                onChange={(event) =>
+                  this.onChangeSelectPagamento(event, "cartaoDeCredito")
+                }
+              />
+              Cartão de Crédito
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                checked={this.state.inputPagamento.includes("cartaoDeDebito")}
                 onChange={(event) =>
                   this.onChangeSelectPagamento(event, "cartaoDeDebito")
                 }
               />
               Cartão de Débito
             </label>
-
+            <label>
+              <input
+                type="checkbox"
+                checked={this.state.inputPagamento.includes("paypal")}
+                onChange={(event) =>
+                  this.onChangeSelectPagamento(event, "paypal")
+                }
+              />
+              PayPal
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                checked={this.state.inputPagamento.includes("boleto")}
+                onChange={(event) =>
+                  this.onChangeSelectPagamento(event, "boleto")
+                }
+              />
+              Boleto Bancário
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                checked={this.state.inputPagamento.includes("pix")}
+                onChange={(event) => this.onChangeSelectPagamento(event, "pix")}
+              />
+              Pix
+            </label>
             <input
               onChange={this.onChangeInputData}
               value={this.state.inputData}
               type="date"
             />
-            
             <button onClick={this.cadastrarServico}> Cadastrar serviço </button>
           </CaixaInputs>
         </PaginaProdutos>
